@@ -1,26 +1,14 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text } from 'react-native';
+import styles from '../styles';
 
-const OperatorButton = ({ operator, onPress }) => {
-  return (
-    <TouchableOpacity style={styles.button} onPress={() => onPress(operator)}>
-      <Text style={styles.buttonText}>{operator}</Text>
-    </TouchableOpacity>
-  );
-};
-
-const styles = StyleSheet.create({
-  button: {
-    padding: 15,
-    margin: 5,
-    backgroundColor: 'blue',
-    borderRadius: 10,
-    elevation: 2,
-  },
-  buttonText: {
-    fontSize: 18,
-    color: 'white',
-  },
-});
+const OperatorButton = ({ operator, onPress }) => (
+  <TouchableOpacity
+    style={styles.button}
+    onPress={onPress}
+  >
+    <Text style={styles.buttonText}>{operator}</Text>
+  </TouchableOpacity>
+);
 
 export default OperatorButton;
