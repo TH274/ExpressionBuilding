@@ -1,27 +1,11 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
+import styles from '../styles';
 
-const ExpressionInput = ({ expression }) => {
-  return (
-    <View style={styles.expressionContainer}>
-      <Text style={styles.expression}>{expression}</Text>
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  expressionContainer: {
-    flexDirection: 'row',
-    marginBottom: 20,
-    padding: 10,
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    elevation: 2,
-  },
-  expression: {
-    fontSize: 24,
-    color: '#333',
-  },
-});
+const ExpressionInput = ({ expression }) => (
+  <View style={styles.expressionContainer}>
+    <Text style={styles.expression}>{expression}</Text>
+  </View>
+);
 
 export default ExpressionInput;

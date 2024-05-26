@@ -1,8 +1,11 @@
 import React from 'react';
-import { Button } from 'react-native';
+import { Button, View } from 'react-native';
+import styles from '../styles';
 
-const ActionButton = ({ title, onPress }) => {
-  return <Button title={title} onPress={onPress} />;
-};
+const ActionButton = ({ title, onPress }) => (
+  <View style={styles.actionButtonContainer}>
+    <Button title={title} onPress={onPress} />
+  </View>
+);
 
 export default ActionButton;

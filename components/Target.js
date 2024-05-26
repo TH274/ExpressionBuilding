@@ -1,18 +1,13 @@
 import React from 'react';
-import { Text, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
+import styles from '../styles';
 
-const Target = ({ target }) => {
-  return (
-    <Text style={styles.target}>Target: {target?.result}</Text>
-  );
-};
-
-const styles = StyleSheet.create({
-  target: {
-    fontSize: 22,
-    marginBottom: 10,
-    color: '#333',
-  },
-});
+const Target = ({ target, attempts, hint }) => (
+  <View>
+    <Text style={styles.target}>Target: {target}</Text>
+    <Text style={styles.attempts}>Attempts: {attempts} / 3</Text>
+    <Text style={styles.hint}>Hint: {hint}</Text>
+  </View>
+);
 
 export default Target;
