@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Alert } from 'react-native';
+import { View, Text, Alert } from 'react-native';
 import styles from '../styles';
 import NumberButton from '../components/NumberButton';
 import OperatorButton from '../components/OperatorButton';
 import ActionButton from '../components/ActionButton';
 import ExpressionInput from '../components/ExpressionInput';
 import Target from '../components/Target';
+import Hint from '../components/Hint';
 
 function Game({ navigation }) {
   const [numbers, setNumbers] = useState(generateRandomNumbers());
@@ -17,7 +18,9 @@ function Game({ navigation }) {
   const [lastInput, setLastInput] = useState(null);
   const [showNextTargetButton, setShowNextTargetButton] = useState(false);
   const [hint, setHint] = useState('');
+  const [hintCount, setHintCount] = useState(0);
   const [gameLost, setGameLost] = useState(false);
+  const [winStreak, setWinStreak] = useState(0);
 
   useEffect(() => {
     setTargets(generateTargets(numbers));
@@ -82,7 +85,6 @@ function Game({ navigation }) {
     setExpression('');
     setUsedNumbers(new Set());
     setLastInput(null);
-    setHint('');
     setGameLost(false);
   };
 
@@ -101,13 +103,15 @@ function Game({ navigation }) {
           ]
         );
         setShowNextTargetButton(true);
+        setWinStreak(winStreak + 1);
       } else {
         if (attempts < 2) {
           Alert.alert("Try Again", `Your expression equals ${result}, not the target: ${targets[currentTargetIndex].result}`);
         } else if (attempts === 2) {
           setGameLost(true);
+          setWinStreak(0);
           Alert.alert("Game Over", `You lose! The correct expression was ${targets[currentTargetIndex]?.expression}`, [
-            { text: "OK", onPress: () => navigation.navigate('Home') }
+            { text: "OK", onPress: () => navigation.navigate('Home', { winStreak}) }
           ]);
         }
         setAttempts(prev => prev + 1);
@@ -122,18 +126,31 @@ function Game({ navigation }) {
     setNumbers(newNumbers);
     setCurrentTargetIndex((currentTargetIndex + 1) % 5);
     handleReset();
+    setHint('');
     setAttempts(0);
     setShowNextTargetButton(false);
   };
 
   const handleHint = () => {
-    const targetExpression = targets[currentTargetIndex]?.expression;
-    const partialHint = targetExpression ? targetExpression.split(' ').slice(0, 3).join(' ') : '';
-    setHint(partialHint);
+    if (hintCount < 2) {
+      const targetExpression = targets[currentTargetIndex]?.expression;
+      const partialHint = targetExpression ? targetExpression.split(' ').slice(0, 3).join(' ') : '';
+      setHint(partialHint);
+      setHintCount(prev => prev + 1);
+    } else {
+      Alert.alert("No more hints", "You have used all available hints.");
+    }
   };
 
   return (
     <View style={styles.container}>
+    <View style={styles.HintContainer}>
+      <Text style={styles.hintCountText}>{2 - hintCount}</Text>
+      <Hint title="Hint" onPress={handleHint} disabled={hintCount >= 2}/>
+    </View>
+    <View style={styles.streakContainer}>
+       <Text style={styles.streakText}>Win Streak: {winStreak}</Text>
+    </View>
       <Target target={targets[currentTargetIndex]?.result} attempts={attempts} hint={hint} />
       <ExpressionInput expression={expression} />
       <View style={styles.buttonsContainer}>
@@ -158,8 +175,10 @@ function Game({ navigation }) {
       <View style={styles.actionButtonsContainer}>
         <ActionButton title="Reset" onPress={handleReset} />
         <ActionButton title="Check" onPress={handleCheck} />
-        <ActionButton title="Hint" onPress={handleHint} />
       </View>
+       <View style={styles.resultContainer}>
+              <Text style={styles.resultText}>Test result: {targets[currentTargetIndex]?.expression}</Text>
+            </View>
     </View>
   );
 }
