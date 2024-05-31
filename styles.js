@@ -15,30 +15,30 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   target: {
-    fontSize: 22,
+    fontSize: 35,
     marginBottom: 10,
     color: '#333',
   },
   attempts: {
-    fontSize: 18,
+    fontSize: 25,
     marginBottom: 20,
     color: '#666',
   },
   hint: {
-    fontSize: 18,
-    marginBottom: 20,
+    fontSize: 25,
+    marginBottom: 23,
     color: '#999',
   },
   expressionContainer: {
     flexDirection: 'row',
     marginBottom: 20,
-    padding: 10,
+    padding: 15,
     backgroundColor: '#fff',
     borderRadius: 10,
     elevation: 2,
   },
   expression: {
-    fontSize: 24,
+    fontSize: 25,
     color: '#333',
   },
   buttonsContainer: {
@@ -48,7 +48,10 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   button: {
-    padding: 15,
+    width: 70,
+    height: 70,
+    alignItems: 'center',
+    justifyContent: 'center',
     margin: 5,
     backgroundColor: '#87ceeb',
     borderRadius: 10,
@@ -58,23 +61,56 @@ const styles = StyleSheet.create({
     backgroundColor: '#b0c4de',
   },
   buttonText: {
-    fontSize: 18,
+    fontSize: 28,
     color: '#fff',
   },
   operatorsContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom: 20,
+    marginBottom: 25,
   },
   actionButtonsContainer: {
     flexDirection: 'row',
+    padding: 5,
     justifyContent: 'space-between',
-    width: '80%',
+    width: '90%',
   },
   actionButtonContainer: {
     flex: 1,
     marginHorizontal: 5,
   },
+  resultContainer: {
+    marginTop: 20,
+    },
+  resultText: {
+    fontSize: 18,
+    color: '#333',
+    },
+  HintContainer: {
+     position: 'absolute',
+     top: 8,
+     right: 12,
+     flexDirection: 'row',
+   },
+   hintCountText: {
+     fontSize: 22,
+     color: '#333',
+     margin: 3,
+     marginRight: 8,
+   },
+   streakContainer: {
+   position: 'absolute',
+   top: 12,
+   left: 12,
+   },
+     lastWinStreak: {
+       fontSize: 20,
+       marginBottom: 10,
+       color: '#666',
+     },
 });
+
+
+
 
 export default styles;
